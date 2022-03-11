@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -35,9 +36,7 @@ void digito_1(vector<vector<string> > m, int ll, int cc){
     col = limit_j;
 }
 
-int main(int argc, char const *argv[]){
-
-    
+int main(int argc, char const *argv[]){   
 
 
     while (cin >> s >> n){
@@ -66,6 +65,12 @@ int main(int argc, char const *argv[]){
         }
 
         // descubro quem são os dígitos que devo printar no display
+        string temp_str=to_string(n);            // converte um número pra string
+        char const* num_array= temp_str.c_str(); // converte uma string pra um vetor char
+
+        /*  Matriz que representa qual posição do display deve ter ou não o '|' ou '-' 
+            C SE SD M IE ID B = cima, sup esq, sup dir, meio, inf esq, inf dir, baixo    */
+        int mat_digitos[qtd_digitos][7];
 
         // faço um swhitch case para cada número
         col = 0;
