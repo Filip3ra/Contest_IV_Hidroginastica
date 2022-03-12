@@ -4,50 +4,39 @@ using namespace std;
 
 int main(int argc, char const *argv[]){
 
-    int i, j, n, diferenca, a[100], b[100];
+    int i, j, n, diferenca, sequencia[3001], vet_bits[3001];
     
     cin >> n;
 
-    for(i = 0; i <n; ++i){
-        b[i] = 0;
-    }
+    for(i = 0; i<n; ++i)
+        vet_bits[i] = 0;
 
-    for(i = 0; i<n; ++i){
-        cin >> a[i];
-    }
+    for(i = 0; i<n; ++i)
+        cin >> sequencia[i];
 
-    int ansFound = 0;
+    bool condicao = false;
     for(i = 0; i<n-1; ++i){
-        diferenca = abs(a[i] - a[i+1]);
-        cout << "->" << diferenca << endl;
-        if(diferenca>n-1){
+        diferenca = abs(sequencia[i] - sequencia[i+1]);
+        if(diferenca > n-1){
             cout << "Not jolly" << endl;
-            ansFound = 1;
+            condicao = true;
             break;
         }
-        else{
-            b[diferenca] = 1;
-        }
+        else
+            vet_bits[diferenca] = 1;
     }
 
-    if(!ansFound){
+    if(!condicao){
         for(i = 1; i<n-1; ++i){
-            
-                cout << b[i] << " ";
-            if(b[i] != 1){
+            if(vet_bits[i] != 1){
                 cout << "Not jolly" << endl;
-                ansFound = 1;
+                condicao = true;
                 break;
             }
         }
-        cout << endl;
-        if(!ansFound){
-            cout << " Jolly" << endl;
-        }
+        if(!condicao)
+            cout << "Jolly" << endl;
     }
-
-
-    
 
     return 0;
 }
