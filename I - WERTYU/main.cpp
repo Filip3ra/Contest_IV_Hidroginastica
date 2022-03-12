@@ -20,6 +20,7 @@ int main(int argc, char const *argv[]){
                 for(int j = 0; j<teclado.length(); ++j){
                     if(teclado[j] == str[i]){
                         cout << teclado[j-1];
+                        
                         break;
                     }
                 }
