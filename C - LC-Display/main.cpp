@@ -7,7 +7,7 @@
 using namespace std;
 
 // variaveis globais
-int col_inicial;
+int col_inicial_c;
 int qtd_digitos;  // quantidade e dígitos que o número possui
 int s, n;         // 'n' é o número e 's' é o tamanho dele
 int l, c, cc;
@@ -16,26 +16,23 @@ int conta_digitos(int num) {
    return int(log10(num) + 1);
 }
 
-void cima(vector<vector<string> > m){
-                cout << "entrei " << endl;
-    int fim = col_inicial+c;
-    char traco = '-';
+vector<vector<string>> cima(vector<vector<string> > m){
 
-    cout << "fim = " << fim << endl;
+    int fim = col_inicial_c+c;
+    int contador = 0;
+
     // percorro da col inicial até a quantidade de colunas para um dígito
     for(int i = 0; i < 1; ++i){ 
-        for(int j = col_inicial; j < fim; ){
-            cout << "rodei" << endl;
-            if(j>0 && j<fim-1){
-                cout << " estou aqui ";
+        for(int j = col_inicial_c; j < fim; ++j){
+            if(contador>0 && j<fim-1){
+                m[i][j].pop_back();
                 m[i][j].push_back('-');
             }
-            
-            ++j;
-            col_inicial += j;
+            contador ++;
         }
     }
-
+    
+    return m;
 }
 
 void meio(){
@@ -87,11 +84,13 @@ void digito_cinco(){
 void digito_seis(){
 
 }
-void digito_sete(vector<vector<string> > m){
-    cima(m);
-}
-void digito_oito(){
+vector<vector<string>> digito_sete(vector<vector<string> > m){
 
+    return cima(m);
+}
+vector<vector<string>> digito_oito(vector<vector<string> > m){
+
+    return cima(m);
 }
 void digito_nove(){
 
@@ -112,7 +111,7 @@ int main(int argc, char const *argv[]){
         l = (s*2)+3;
         cc = (s+2)*qtd_digitos; // total de colunas ocupadas por todos os dígitos
         c = s+2;                // colunas ocupadas por um dígito
-        char s = ' ';
+        char s = '*';
         vector<vector<string>> matrix(cc); // organiza quantidade de colunas
 
         
@@ -130,8 +129,13 @@ int main(int argc, char const *argv[]){
         char const* num_array = temp_str.c_str();  // converte uma string pra um vetor char
 
         // acesso cada um dos dígitos que devo printar
-        col_inicial = 0;
+        col_inicial_c = 0;
         for(int i = 0; i < temp_str.size() ; ++i){
+
+            if(i!=0){
+                col_inicial_c += c; 
+            }
+
             switch (num_array[i])
             {
             case '0':
@@ -156,10 +160,10 @@ int main(int argc, char const *argv[]){
                 digito_seis();
                 break;
             case '7':
-                digito_sete(matrix);
+                matrix = digito_sete(matrix);
                 break;
             case '8':
-                digito_oito();
+                matrix = digito_oito(matrix);
                 break;
             case '9':
                 digito_nove();
@@ -170,7 +174,7 @@ int main(int argc, char const *argv[]){
             }
         }
 
-        for(int i = 0; i < l; ++i){         // preenche a matrix com vazios
+        for(int i = 0; i < l; ++i){
             for(int j = 0; j <cc; ++j){
                 cout << matrix[i][j];
             }
