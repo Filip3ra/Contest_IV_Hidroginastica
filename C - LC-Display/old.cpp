@@ -15,6 +15,27 @@ int conta_digitos(int num) {
    return int(log10(num) + 1);
 }
 
+void digito_1(vector<vector<string> > m, int ll, int cc){
+    
+    int j = col;
+    int qtd_iteracoes_j = cc/qtd_digitos;
+    int limit_j = j + qtd_iteracoes_j;
+
+
+    int i = 0;
+    for(int k = 0; k < 2; ++k){
+        for(; i < s; ++i)
+            m[i+1][limit_j-1] = '|';
+    }
+
+    for(int i = 0; i < ll; ++i){         // preenche a matrix com vazios
+        for(j = 0; j < limit_j; ++j){
+            m[i][j].push_back();
+        }         
+    }
+
+    col = limit_j;
+}
 
 int main(int argc, char const *argv[]){   
 
@@ -31,12 +52,10 @@ int main(int argc, char const *argv[]){
 
         // crio uma matriz com tamanho adequado as regras
         int l = (s*2)+3;
-        int cc = (s+2)*qtd_digitos; // total de colunas ocupadas por todos os dígitos
-        int c = s+2;                // colunas ocupadas por um dígito
+        int c = (s+2)*qtd_digitos;
         char s = ' ';
-        vector<vector<string> > matrix(l); // organiza quantidade de colunas
 
-        
+        vector<vector<string> > matrix(l); // organiza quantidade de colunas
         for ( int i = 0 ; i < l ; i++ )
             matrix[i].resize(c);
 
@@ -47,13 +66,17 @@ int main(int argc, char const *argv[]){
         }
 
         // descubro quem são os dígitos que devo printar no display
-        string temp_str = to_string(n);            // converte um número pra string
-        char const* num_array = temp_str.c_str(); // converte uma string pra um vetor char
+        string temp_str=to_string(n);            // converte um número pra string
+        char const* num_array= temp_str.c_str(); // converte uma string pra um vetor char
 
-        // acesso cada um dos dígitos que devo printar
-        for(int i = 0; i < temp_str.size() ; ++i){
-            cout << "> " << num_array[i];
-        }
+        /*  Matriz que representa qual posição do display deve ter ou não o '|' ou '-' 
+            C SE SD M IE ID B = cima, sup esq, sup dir, meio, inf esq, inf dir, baixo    */
+        int mat_digitos[qtd_digitos][7];
+
+        // faço um swhitch case para cada número
+        col = 0;
+            // se o dígito for 1, chama função digito_1()
+
         
         
     }
