@@ -7,14 +7,47 @@
 using namespace std;
 
 // variaveis globais
-int col;
+int col_inicial;
 int qtd_digitos;  // quantidade e dígitos que o número possui
 int s, n;         // 'n' é o número e 's' é o tamanho dele
+vector<vector<string> > matrix;
 
 int conta_digitos(int num) {
    return int(log10(num) + 1);
 }
 
+void digito_zero(){
+
+}
+void digito_um(){
+cout << ">>1" << endl;
+}
+void digito_dois(){
+
+cout << ">>2" << endl;
+}
+void digito_tres(){
+
+cout << ">>3" << endl;
+}
+void digito_quatro(){
+
+}
+void digito_cinco(){
+
+}
+void digito_seis(){
+
+}
+void digito_sete(){
+
+}
+void digito_oito(){
+
+}
+void digito_nove(){
+
+}
 
 int main(int argc, char const *argv[]){   
 
@@ -27,23 +60,23 @@ int main(int argc, char const *argv[]){
         // decubro quantos dígitos tem meu número
         qtd_digitos = conta_digitos(n);
 
-        cout << s << " " << n << "qtd digitos = " << qtd_digitos << endl;
-
         // crio uma matriz com tamanho adequado as regras
         int l = (s*2)+3;
         int cc = (s+2)*qtd_digitos; // total de colunas ocupadas por todos os dígitos
         int c = s+2;                // colunas ocupadas por um dígito
         char s = ' ';
-        vector<vector<string> > matrix(l); // organiza quantidade de colunas
+        vector<vector<string> > matrix(cc); // organiza quantidade de colunas
 
-        
+
         for ( int i = 0 ; i < l ; i++ )
-            matrix[i].resize(c);
+            matrix[i].resize(cc);
 
         for(int i = 0; i < l; ++i){         // preenche a matrix com vazios
-            for(int j = 0; j <c; ++j){
+            for(int j = 0; j <cc; ++j){
                 matrix[i][j].push_back(s);
-            }         
+                cout << "0";
+            }
+            cout << endl;
         }
 
         // descubro quem são os dígitos que devo printar no display
@@ -51,8 +84,44 @@ int main(int argc, char const *argv[]){
         char const* num_array = temp_str.c_str(); // converte uma string pra um vetor char
 
         // acesso cada um dos dígitos que devo printar
+        col_inicial = 0;
         for(int i = 0; i < temp_str.size() ; ++i){
-            cout << "> " << num_array[i];
+            switch (num_array[i])
+            {
+            case '0':
+                digito_zero();
+                break;
+            case '1':
+                digito_um();
+                break;
+            case '2':
+                digito_dois();
+                break;
+            case '3':
+                digito_tres();
+                break;
+            case '4':
+                digito_quatro();
+                break;
+            case '5':
+                digito_cinco();
+                break;
+            case '6':
+                digito_seis();
+                break;
+            case '7':
+                digito_sete();
+                break;
+            case '8':
+                digito_oito();
+                break;
+            case '9':
+                digito_nove();
+                break;
+            
+            default:
+                break;
+            }
         }
         
         
