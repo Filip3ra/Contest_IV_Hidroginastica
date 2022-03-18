@@ -222,12 +222,12 @@ int main(int argc, char const *argv[]){
 
     while (cin >> s >> n){
 
-        if(s == 0 && n == "0")
+        if(s == 0)
             break;
 
         // decubro quantos dígitos tem meu número
         qtd_digitos = conta_digitos(n);
-        //cout << qtd_digitos << "<--";
+        cout << qtd_digitos << "<--";
 
         // crio uma matriz com tamanho adequado as regras
         l = (s*2)+3;
