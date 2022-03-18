@@ -7,7 +7,7 @@
 using namespace std;
 
 // variaveis globais
-int col_inicial_c;
+int col_inicial_c, col_inicial_m, col_inicial_b;
 int qtd_digitos;  // quantidade e dígitos que o número possui
 int s, n;         // 'n' é o número e 's' é o tamanho dele
 int l, c, cc;
@@ -35,12 +35,41 @@ vector<vector<string>> cima(vector<vector<string> > m){
     return m;
 }
 
-void meio(){
+vector<vector<string>> meio(vector<vector<string> > m){
 
+    int fim = col_inicial_m+c;
+    int contador = 0;
+
+    // percorro da col inicial até a quantidade de colunas para um dígito
+    int lin = (l-1)/2;
+    for(int i = lin; i < lin+1; ++i){ 
+        for(int j = col_inicial_c; j < fim; ++j){
+            if(contador>0 && j<fim-1){
+                m[i][j].pop_back();
+                m[i][j].push_back('-');
+            }
+            contador ++;
+        }
+    }
+    
+    return m;
 }
 
-void baixo(){
+vector<vector<string>> baixo(vector<vector<string> > m){
 
+    int fim = col_inicial_b+c;
+    int contador = 0;
+    
+    for(int i = l-1; i < l; ++i){ 
+        for(int j = col_inicial_b; j < fim; ++j){
+            if(contador>0 && j<fim-1){
+                m[i][j].pop_back();
+                m[i][j].push_back('-');
+            }
+            contador ++;
+        }
+    }    
+    return m;
 }
 
 void sup_esq(){
@@ -86,14 +115,21 @@ void digito_seis(){
 }
 vector<vector<string>> digito_sete(vector<vector<string> > m){
 
-    return cima(m);
+    m = cima(m);
+
+    return m;
 }
 vector<vector<string>> digito_oito(vector<vector<string> > m){
-
-    return cima(m);
+    m = cima(m);
+    m = meio(m);
+    m = baixo(m);
+    return m;
 }
-void digito_nove(){
-
+vector<vector<string>> digito_nove(vector<vector<string> > m){
+    m = cima(m);
+    m = meio(m);
+    m = baixo(m);
+    return m;
 }
 
 int main(int argc, char const *argv[]){   
@@ -111,7 +147,7 @@ int main(int argc, char const *argv[]){
         l = (s*2)+3;
         cc = (s+2)*qtd_digitos; // total de colunas ocupadas por todos os dígitos
         c = s+2;                // colunas ocupadas por um dígito
-        char s = '*';
+        char s = ' ';
         vector<vector<string>> matrix(cc); // organiza quantidade de colunas
 
         
@@ -128,12 +164,16 @@ int main(int argc, char const *argv[]){
         string temp_str = to_string(n);            // converte um número pra string
         char const* num_array = temp_str.c_str();  // converte uma string pra um vetor char
 
+        // variávis que auxiliam no posicionamento da matriz 
+        col_inicial_c = col_inicial_m = col_inicial_b = 0;
+
         // acesso cada um dos dígitos que devo printar
-        col_inicial_c = 0;
         for(int i = 0; i < temp_str.size() ; ++i){
 
             if(i!=0){
-                col_inicial_c += c; 
+                col_inicial_c += c;
+                col_inicial_m += c;
+                col_inicial_b += c;
             }
 
             switch (num_array[i])
@@ -166,7 +206,7 @@ int main(int argc, char const *argv[]){
                 matrix = digito_oito(matrix);
                 break;
             case '9':
-                digito_nove();
+                matrix = digito_nove(matrix);
                 break;
             
             default:
