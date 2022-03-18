@@ -10,11 +10,59 @@ using namespace std;
 int col_inicial;
 int qtd_digitos;  // quantidade e dígitos que o número possui
 int s, n;         // 'n' é o número e 's' é o tamanho dele
-vector<vector<string> > matrix;
+int l, c, cc;
 
 int conta_digitos(int num) {
    return int(log10(num) + 1);
 }
+
+void cima(vector<vector<string> > m){
+                cout << "entrei " << endl;
+    int fim = col_inicial+c;
+    char traco = '-';
+
+    cout << "fim = " << fim << endl;
+    // percorro da col inicial até a quantidade de colunas para um dígito
+    for(int i = 0; i < 1; ++i){ 
+        for(int j = col_inicial; j < fim; ){
+            cout << "rodei" << endl;
+            if(j>0 && j<fim-1){
+                cout << " estou aqui ";
+                m[i][j].push_back('-');
+            }
+            
+            ++j;
+            col_inicial += j;
+        }
+    }
+
+}
+
+void meio(){
+
+}
+
+void baixo(){
+
+}
+
+void sup_esq(){
+
+}
+
+void sup_dir(){
+
+}
+
+void inf_esq(){
+
+}
+
+void inf_dir(){
+
+}
+
+
 
 void digito_zero(){
 
@@ -39,8 +87,8 @@ void digito_cinco(){
 void digito_seis(){
 
 }
-void digito_sete(){
-
+void digito_sete(vector<vector<string> > m){
+    cima(m);
 }
 void digito_oito(){
 
@@ -61,27 +109,25 @@ int main(int argc, char const *argv[]){
         qtd_digitos = conta_digitos(n);
 
         // crio uma matriz com tamanho adequado as regras
-        int l = (s*2)+3;
-        int cc = (s+2)*qtd_digitos; // total de colunas ocupadas por todos os dígitos
-        int c = s+2;                // colunas ocupadas por um dígito
+        l = (s*2)+3;
+        cc = (s+2)*qtd_digitos; // total de colunas ocupadas por todos os dígitos
+        c = s+2;                // colunas ocupadas por um dígito
         char s = ' ';
-        vector<vector<string> > matrix(cc); // organiza quantidade de colunas
+        vector<vector<string>> matrix(cc); // organiza quantidade de colunas
 
-
+        
         for ( int i = 0 ; i < l ; i++ )
             matrix[i].resize(cc);
 
         for(int i = 0; i < l; ++i){         // preenche a matrix com vazios
             for(int j = 0; j <cc; ++j){
                 matrix[i][j].push_back(s);
-                cout << "0";
             }
-            cout << endl;
         }
 
         // descubro quem são os dígitos que devo printar no display
         string temp_str = to_string(n);            // converte um número pra string
-        char const* num_array = temp_str.c_str(); // converte uma string pra um vetor char
+        char const* num_array = temp_str.c_str();  // converte uma string pra um vetor char
 
         // acesso cada um dos dígitos que devo printar
         col_inicial = 0;
@@ -110,7 +156,7 @@ int main(int argc, char const *argv[]){
                 digito_seis();
                 break;
             case '7':
-                digito_sete();
+                digito_sete(matrix);
                 break;
             case '8':
                 digito_oito();
@@ -122,6 +168,13 @@ int main(int argc, char const *argv[]){
             default:
                 break;
             }
+        }
+
+        for(int i = 0; i < l; ++i){         // preenche a matrix com vazios
+            for(int j = 0; j <cc; ++j){
+                cout << matrix[i][j];
+            }
+            cout << endl;
         }
         
         
