@@ -220,13 +220,13 @@ int main(int argc, char const *argv[]){
                 digito_zero();
                 break;
             case '1':
-                digito_um();
+                matrix = digito_um(matrix);
                 break;
             case '2':
                 digito_dois();
                 break;
             case '3':
-                digito_tres();
+                matrix = digito_tres(matrix);
                 break;
             case '4':
                 digito_quatro();
