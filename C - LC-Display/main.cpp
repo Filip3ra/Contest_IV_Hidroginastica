@@ -8,6 +8,7 @@ using namespace std;
 
 // variaveis globais
 int col_inicial_c, col_inicial_m, col_inicial_b;
+int col_inicial_dir;
 int qtd_digitos;  // quantidade e dígitos que o número possui
 int s, n;         // 'n' é o número e 's' é o tamanho dele
 int l, c, cc;
@@ -76,16 +77,40 @@ void sup_esq(){
 
 }
 
-void sup_dir(){
+vector<vector<string>> sup_dir(vector<vector<string> > m){
 
+    int col = (col_inicial_dir+c)-1;
+    int contador = 0;
+    
+    for(int j = col; j < col+1; ++j){ 
+        for(int i = 1; i <= s; ++i){
+            if(contador<s){
+                m[i][j].pop_back();
+                m[i][j].push_back('|');
+            }
+            contador ++;
+        }
+    }
+    return m;
 }
 
 void inf_esq(){
 
 }
 
-void inf_dir(){
+vector<vector<string>> inf_dir(vector<vector<string> > m){
 
+    int col = (col_inicial_dir+c)-1;
+    int contador = 0;
+    int lin = ((l-1)/2)+1;
+    for(int j = col; j < col+1; ++j){ 
+        for(int i = lin; contador < s; ++i){
+            m[i][j].pop_back();
+            m[i][j].push_back('|');
+            contador ++;
+        }
+    }
+    return m;
 }
 
 
@@ -93,16 +118,22 @@ void inf_dir(){
 void digito_zero(){
 
 }
-void digito_um(){
-cout << ">>1" << endl;
+vector<vector<string>> digito_um(vector<vector<string> > m){
+    m = sup_dir(m);
+    m = inf_dir(m);
+    return m;
 }
 void digito_dois(){
 
 cout << ">>2" << endl;
 }
-void digito_tres(){
-
-cout << ">>3" << endl;
+vector<vector<string>> digito_tres(vector<vector<string> > m){
+    m = cima(m);
+    m = meio(m);
+    m = baixo(m);
+    m = sup_dir(m);
+    m = inf_dir(m);
+    return m;
 }
 void digito_quatro(){
 
@@ -116,19 +147,24 @@ void digito_seis(){
 vector<vector<string>> digito_sete(vector<vector<string> > m){
 
     m = cima(m);
-
+    m = sup_dir(m);
+    m = inf_dir(m);
     return m;
 }
 vector<vector<string>> digito_oito(vector<vector<string> > m){
     m = cima(m);
     m = meio(m);
     m = baixo(m);
+    m = sup_dir(m);
+    m = inf_dir(m);
     return m;
 }
 vector<vector<string>> digito_nove(vector<vector<string> > m){
     m = cima(m);
     m = meio(m);
     m = baixo(m);
+    m = sup_dir(m);
+    m = inf_dir(m);
     return m;
 }
 
@@ -166,6 +202,7 @@ int main(int argc, char const *argv[]){
 
         // variávis que auxiliam no posicionamento da matriz 
         col_inicial_c = col_inicial_m = col_inicial_b = 0;
+        col_inicial_dir = 0;
 
         // acesso cada um dos dígitos que devo printar
         for(int i = 0; i < temp_str.size() ; ++i){
@@ -174,6 +211,7 @@ int main(int argc, char const *argv[]){
                 col_inicial_c += c;
                 col_inicial_m += c;
                 col_inicial_b += c;
+                col_inicial_dir += c;
             }
 
             switch (num_array[i])
