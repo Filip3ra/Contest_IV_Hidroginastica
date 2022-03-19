@@ -25,13 +25,13 @@ int conta_digitos(string num) {
 
 vector<vector<string>> cima(vector<vector<string> > m){
 
-    int fim = col_inicial_c+c;
+    int fim = col_inicial_c+c+1;
     int contador = 0;
 
     // percorro da col inicial até a quantidade de colunas para um dígito
     for(int i = 0; i < 1; ++i){ 
         for(int j = col_inicial_c; j < fim; ++j){
-            if(contador>0 && j<fim-1){
+            if(contador<s){
                 m[i][j].pop_back();
                 m[i][j].push_back('-');
             }
@@ -43,14 +43,14 @@ vector<vector<string>> cima(vector<vector<string> > m){
 }
 vector<vector<string>> meio(vector<vector<string> > m){
 
-    int fim = col_inicial_m+c;
+    int fim = col_inicial_m+c+1;
     int contador = 0;
 
     // percorro da col inicial até a quantidade de colunas para um dígito
     int lin = (l-1)/2;
     for(int i = lin; i < lin+1; ++i){ 
         for(int j = col_inicial_c; j < fim; ++j){
-            if(contador>0 && j<fim-1){
+            if(contador<s){
                 m[i][j].pop_back();
                 m[i][j].push_back('-');
             }
@@ -62,12 +62,12 @@ vector<vector<string>> meio(vector<vector<string> > m){
 }
 vector<vector<string>> baixo(vector<vector<string> > m){
 
-    int fim = col_inicial_b+c;
+    int fim = col_inicial_b+c+1;
     int contador = 0;
     
     for(int i = l-1; i < l; ++i){ 
         for(int j = col_inicial_b; j < fim; ++j){
-            if(contador>0 && j<fim-1){
+            if(contador<s){
                 m[i][j].pop_back();
                 m[i][j].push_back('-');
             }
@@ -227,20 +227,14 @@ int main(int argc, char const *argv[]){
 
         // decubro quantos dígitos tem meu número
         qtd_digitos = conta_digitos(n);
-        cout << qtd_digitos << "<--";
 
         // crio uma matriz com tamanho adequado as regras
         l = (s*2)+3;
-        cc = (s+2)*qtd_digitos; // total de colunas ocupadas por todos os dígitos
+        cc = ((s+2)*qtd_digitos)+(qtd_digitos-1); // total de colunas ocupadas por todos os dígitos
         c = s+2;                // colunas ocupadas por um dígito
         char s = ' ';
-        vector<vector<string>> matrix(cc); // organiza quantidade de colunas 
-        
-        
-        for ( int i = 0 ; i < l ; i++ )
-            matrix[i].resize(cc);
-
-
+        // inicializo uma matriz com l x cc preenchida com vazios
+        vector<vector<string>> matrix(l,vector<string>(cc) );  
 
 
         for(int i = 0; i < l; ++i){         // preenche a matrix com vazios
@@ -267,10 +261,10 @@ int main(int argc, char const *argv[]){
                 col_inicial_c += c;
                 col_inicial_m += c;
                 col_inicial_b += c;
-                col_inicial_dir_sup += c;
-                col_inicial_dir_inf += c;
-                col_inicial_esq_sup += c;
-                col_inicial_esq_inf += c;
+                col_inicial_dir_sup += c+1;
+                col_inicial_dir_inf += c+1;
+                col_inicial_esq_sup += c+1;
+                col_inicial_esq_inf += c+1;
             }
 
             switch (num_array[i])
@@ -347,3 +341,4 @@ int main(int argc, char const *argv[]){
         cout << "colunas " << c << endl;
 
 */
+
