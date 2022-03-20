@@ -25,16 +25,14 @@ int conta_digitos(string num) {
 
 vector<vector<string>> cima(vector<vector<string> > m){
 
-    int fim = col_inicial_c+c+1;
+    //int fim = col_inicial_c+c+1;
     int contador = 0;
 
     // percorro da col inicial até a quantidade de colunas para um dígito
     for(int i = 0; i < 1; ++i){ 
-        for(int j = col_inicial_c; j < fim; ++j){
-            if(contador<s){
-                m[i][j].pop_back();
-                m[i][j].push_back('-');
-            }
+        for(int j = col_inicial_c+1; contador<s; ++j){
+            m[i][j].pop_back();
+            m[i][j].push_back('-');
             contador++;
         }
     }
@@ -43,17 +41,15 @@ vector<vector<string>> cima(vector<vector<string> > m){
 }
 vector<vector<string>> meio(vector<vector<string> > m){
 
-    int fim = col_inicial_m+c+1;
+    //int fim = col_inicial_m+c+1;
     int contador = 0;
 
     // percorro da col inicial até a quantidade de colunas para um dígito
     int lin = (l-1)/2;
     for(int i = lin; i < lin+1; ++i){ 
-        for(int j = col_inicial_c; j < fim; ++j){
-            if(contador<s){
-                m[i][j].pop_back();
-                m[i][j].push_back('-');
-            }
+        for(int j = col_inicial_c+1; contador<s; ++j){
+            m[i][j].pop_back();
+            m[i][j].push_back('-');
             contador++;
         }
     }
@@ -62,15 +58,13 @@ vector<vector<string>> meio(vector<vector<string> > m){
 }
 vector<vector<string>> baixo(vector<vector<string> > m){
 
-    int fim = col_inicial_b+c+1;
+    //int fim = col_inicial_b+c+1;
     int contador = 0;
     
     for(int i = l-1; i < l; ++i){ 
-        for(int j = col_inicial_b; j < fim; ++j){
-            if(contador<s){
-                m[i][j].pop_back();
-                m[i][j].push_back('-');
-            }
+        for(int j = col_inicial_b+1; contador<s; ++j){
+            m[i][j].pop_back();
+            m[i][j].push_back('-');
             contador++;
         }
     }    
@@ -183,6 +177,7 @@ vector<vector<string>> digito_cinco(vector<vector<string> > m){
     return m;
 }
 vector<vector<string>> digito_seis(vector<vector<string> > m){
+    m = cima(m);
     m = meio(m);
     m = baixo(m);
     m = inf_dir(m);
@@ -191,7 +186,6 @@ vector<vector<string>> digito_seis(vector<vector<string> > m){
     return m;
 }
 vector<vector<string>> digito_sete(vector<vector<string> > m){
-
     m = cima(m);
     m = sup_dir(m);
     m = inf_dir(m);
@@ -258,9 +252,9 @@ int main(int argc, char const *argv[]){
         for(int i = 0; i < n.size() ; ++i){
 
             if(i!=0){
-                col_inicial_c += c;
-                col_inicial_m += c;
-                col_inicial_b += c;
+                col_inicial_c += c+1;
+                col_inicial_m += c+1;
+                col_inicial_b += c+1;
                 col_inicial_dir_sup += c+1;
                 col_inicial_dir_inf += c+1;
                 col_inicial_esq_sup += c+1;
@@ -311,7 +305,7 @@ int main(int argc, char const *argv[]){
             }
             cout << endl;
         }
-        
+        cout << endl;
         matrix.clear();        
     }
     
